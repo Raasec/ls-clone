@@ -4,17 +4,22 @@
 #include "ls.h"
 
 
-int main()
+void listDirectory(const char* path)
 {
     struct dirent *entry;
-    char path[256];
-
+    
     DIR *dir = opendir(path);
 
     if (dir == NULL)
     {
         perror("opendir Failed");
-        return NULL;
+        return;
     }
 
+    while((entry = readdir(dir)) != NULL)
+    {
+        printf("%s\n", entry->d_name);   
+    }
+
+    closedir(dir);
 }
